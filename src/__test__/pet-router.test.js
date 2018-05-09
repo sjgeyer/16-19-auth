@@ -83,7 +83,7 @@ describe('PET ROUTER', () => {
           expect(err.status).toEqual(400);
         });
     });
-    test('should return 401 if passed invalid token', () => {
+    test('should return status 401 if passed invalid token', () => {
       return createPetMockProm()
         .then((mockObject) => {
           return superagent.get(`${apiUrl}/pets/${mockObject.pet._id}`)
@@ -94,7 +94,7 @@ describe('PET ROUTER', () => {
           expect(err.status).toEqual(401);
         });
     });
-    test('should return 404 if pet not found at id', () => {
+    test('should return status 404 if pet not found at id', () => {
       return createPetMockProm()
         .then((mockObject) => {
           return superagent.get(`${apiUrl}/pets/BADID`)

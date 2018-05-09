@@ -3,6 +3,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
+import HttpErrors from 'http-errors';
 import jsonWebToken from 'jsonwebtoken';
 
 const HASH_ROUNDS = 8;
@@ -12,6 +13,11 @@ const accountSchema = mongoose.Schema({
   passwordHash: {
     type: String,
     required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -37,7 +43,16 @@ function createTokenProm() {
     });
 }
 
+function verifyPasswordProm(password) {
+  return bcrypt.compare(password, this.passwordHash)
+    .then((result) => {
+      if (!result) throw new HttpErrors(400, 'Invalid request');
+      return this;
+    });
+}
+
 accountSchema.methods.createTokenProm = createTokenProm;
+accountSchema.methods.verifyPasswordProm = verifyPasswordProm;
 
 const Account = mongoose.model('account', accountSchema);
 

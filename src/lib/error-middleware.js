@@ -26,6 +26,10 @@ export default (error, request, response, next) => { // eslint-disable-line no-u
   //   logger.log(logger.INFO, 'Responding with a 401');
   //   return response.sendStatus(401);
   // }
+  if (errorMessage.includes('jwt malformed')) {
+    logger.log(logger.INFO, 'Responding with a 401');
+    return response.sendStatus(401);
+  }
   logger.log(logger.ERROR, 'Responding with 500');
   return response.sendStatus(500);
 };

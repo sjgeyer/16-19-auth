@@ -5,12 +5,14 @@ This app creates a new user and stores it in the database.
 ## Routing functions
 
 ### .post()
-`Roouter.post('/api/users/signup')` : Creates a user using the input username, email, and password (email must be unique). User's password will be stored securely in the database, i.e. not as plaintext.
+`Router.post('/signup')` : Creates a user using the input username, email, and password (email must be unique). User's password will be stored securely in the database, i.e. not as plaintext.
 
 Possible status codes:
 - 200: Successful user profile creation
 - 400: Required information missing
 - 409: Email already exists in database
+
+`Router.get('/login')` : Finds an existing 
 
 ### Installation
 

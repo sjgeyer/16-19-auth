@@ -6,12 +6,14 @@ import logger from './logger';
 import errorMiddleware from './error-middleware';
 import authRoutes from '../route/auth-router';
 import petRoutes from '../route/pet-router';
+import imageRoutes from '../route/image-router';
 
 const app = express();
 let server = null;
 
 app.use(authRoutes);
 app.use(petRoutes);
+app.use(imageRoutes);
 app.all('*', (req, res) => {
   logger.log(logger.INFO, 'Returning 404 from * route');
   return res.sendStatus(404);
